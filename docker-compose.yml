@@ -8,7 +8,6 @@ services:
       - ${FRONTEND_PORT}:3000
     volumes:
       - ./frontend:/var/www
-      - node_modules_volume:/var/www/next-web/node_modules
     tty: true
 
   backend:
@@ -48,6 +47,3 @@ services:
       - ${PHPMYADMIN_PORT}:80
     volumes:
       - /sessions
-
-volumes:
-  node_modules_volume:
