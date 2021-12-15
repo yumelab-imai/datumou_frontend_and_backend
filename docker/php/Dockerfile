@@ -8,14 +8,10 @@ RUN apt-get update \
     && docker-php-ext-install zip pdo_mysql \
     && pecl install xdebug
 
-RUN useradd -ms /bin/bash -g www-data next-laravel-user \
-    && echo "next-laravel-user:password" | chpasswd
+RUN useradd -ms /bin/bash jill \
+    && echo "jill:re3" | chpasswd
     
-RUN chown -R next-laravel-user:www-data /var/www/ \
-  && chown -R next-laravel-user:www-data /var/run/ \
-  && chown -R next-laravel-user:www-data /var/log/
-
-USER next-laravel-user
+USER jill
 
 # マルチステージビルドでcomposer
 COPY --from=composer:2.1 /usr/bin/composer /usr/bin/composer
