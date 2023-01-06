@@ -19,8 +19,9 @@ return [
 
     'allowed_methods' => ['*'],
 
-    // 'allowed_origins' => ['*'],
-    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost')],
+    // cors error comp here!
+    'allowed_origins' => ['*'],
+    // 'allowed_origins' => [env('FRONTEND_URL', 'http://localhost')],
 
     'allowed_origins_patterns' => [],
 

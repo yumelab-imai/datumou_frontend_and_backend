@@ -3,9 +3,18 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 
+import axios from "../libs/axios";
+import React, { useEffect } from 'react';
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  useEffect(() => {
+    axios.get("/api/books").then((res) => {
+    const data = res.data;
+    console.log(data);
+   });
+  }, []);
   return (
     <>
       <Head>
