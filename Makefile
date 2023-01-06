@@ -1,5 +1,5 @@
-frontend:
+frontend_c:
 	docker-compose exec frontend sh
 
-backend:
+backend_c:
 	docker-compose exec backend bash
