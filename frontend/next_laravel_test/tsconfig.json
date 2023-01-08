@@ -18,6 +18,8 @@
     "baseUrl": "src/", // 追記
     "rootDir": "src/", // 追記
   },
+  // コンパイルする対象
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  // コンパイル除外対象
   "exclude": ["node_modules"]
 }
