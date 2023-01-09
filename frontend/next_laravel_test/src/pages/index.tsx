@@ -6,6 +6,11 @@ import styles from '../styles/Home.module.css'
 import axios from "../libs/axios";
 import React, { useEffect } from 'react';
 
+import { useHandleLogout } from '../components/shared/function/Auth/AuthLisnter'
+
+const handleLogout = useHandleLogout()
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -127,6 +132,13 @@ export default function Home() {
           </a>
         </div>
       </main>
+
+      <span
+        className={'block px-4 py-2 text-sm text-gray-700 cursor-pointer'}
+        onClick={handleLogout}
+      >
+      ログアウト
+      </span>
     </>
   )
 }

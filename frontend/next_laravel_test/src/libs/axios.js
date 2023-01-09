@@ -8,7 +8,7 @@ const axios = Axios.create({
     "X-Requested-With": "XMLHttpRequest",
     "Access-Control-Allow-Origin": "*",
   },
-  withCredentials: true,
+  withCredentials: true,// クッキー認証の許可
 });
 
 

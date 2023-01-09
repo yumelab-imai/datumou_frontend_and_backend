@@ -12,6 +12,8 @@ window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+// window.axios.defaults.withCredentials = true;// 専用のファイルを作成し、使用するところで、importしているため、今回は必要ないがそれ以外はこれを記述しなければならない
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
