@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],// corsを許可するパスの設定
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login'],// corsを許可するパス（エンドポイント）
 
     'allowed_methods' => ['*'],
 
@@ -31,6 +31,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,// クッキー認証の許可(false(Default value) => trueに変更)
+    'supports_credentials' => true,// クッキー認証の許可(false(Default value) => trueに変更)。レスポンスヘッダの Access-Control-Allow-Credentials が true を返すようになります。
 
 ];

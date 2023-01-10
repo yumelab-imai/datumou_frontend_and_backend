@@ -14,7 +14,7 @@ const LoginPage = () => {
   const { handleLogin } = useHandleLogin()
   const inputEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(event.target.value)
+      setEmail(event.target.value);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [email]
@@ -49,11 +49,8 @@ const LoginPage = () => {
       <button
         className=""
         onClick={() => handleLogin(email, password)}
-      />
-      <button
-        className=""
-        onClick={() => handleLogin(email, password)}
-      />
+      >ログイン
+      </button>
       {/* <Spacer className="h-20" /> */}
       <Link
         className=" text-blue-400 text-xs text-center"

@@ -12,10 +12,15 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+
+
         $credentials = $request->validate([
-            "email" => ["required", "email"],
-            "password" => ["required"],
-        ]);
+            "email" => ["required", 'email:rfc'],
+            // "password" => ["required", 'regex:regex:/\A([a-zA-Z0-9]{8,})+\z/u'],//8文字以上の半角英数字
+            "password" => ["required"],//8文字以上の半角英数字
+        ]);// この時点で validation されている！
+
+        // return response()->json([], 200);//これでやると上手くいって、push('/')に移動する！
 
         //この辺でこれとかも使えそう！
         // $data = $request->all();
@@ -24,6 +29,8 @@ class AuthController extends Controller
             // セッションIDの再発行
             $request->session()->regenerate();
             return response()->json(Auth::user());
+        } else {
+            return response()->json([], 200);//これでやると上手くいって、push('/')に移動する！
         }
         // else文の方が、better
         return response()->json([], 401);

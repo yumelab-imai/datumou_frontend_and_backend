@@ -31,9 +31,16 @@ export const useHandleLogin = () => {
 //   const [user, setUser] = useRecoilState<IUserState>(userState)
 //   const [user, setUser] = useRecoilState<USER2>(userState)
   const [user, setUser] = useRecoilState<USER2>(userState)
-  const router = useRouter()
+  console.log("first");
+  console.log(userState);
+  console.log(user);
+  console.log("finish");
+  const router = useRouter();
 
   const handleLogin: (email: string, password: string) => void = (email, password) => {
+      console.log('Use handleLogin');
+    console.log(email);
+    console.log(password);
     const options: AxiosRequestConfig = {
       url: '/api/login',
       method: 'POST',
@@ -44,20 +51,29 @@ export const useHandleLogin = () => {
     }
 
     axios.get('/sanctum/csrf-cookie').then((res: AxiosResponse) => {
-      axios(options)
-        .then((res: AxiosResponse<USER2>) => {
-          const user = res.data
-          setUser({
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-          })
-          router.push('/')
-        })
-        .catch((error: AxiosError) => {
-          console.log(error)
-        })
+        // console.log("res111");
+        // console.log(res);//何も問題ない何も帰ってこない
+        axios(options)
+            .then((res: AxiosResponse<USER2>) => {
+                const user = res.data
+                setUser({
+                    // id: user.id,
+                    // name: user.name,
+                    id: 200,
+                    name: "OK Google!!",
+                    email: user.email,
+                    password: user.password,
+                })
+                router.push('/')
+            })
+            .catch((error: AxiosError) => {
+                console.log('Error を表示するよ~!');
+                alert('Error を表示するよ~!');
+                console.log(error);
+                alert(error);
+                alert(error?.response?.data?.message);
+                console.log(error?.response?.data?.message);
+            })
     })
   }
 
@@ -143,6 +159,8 @@ export const useListenAuthState = () => {
 
     axios(options)
       .then((res: AxiosResponse<USER2>) => {
+          console.log('777')
+          console.log(res)
         const user = res.data
         console.log(user)
 
@@ -160,10 +178,10 @@ export const useListenAuthState = () => {
       })
       .catch((error: AxiosError) => {
         setUser({
-          id: 0,
-          name: 'error',
-          email: 'error',
-          password: 'error',
+          id: 44,
+          name: 'AxiosError',
+          email: 'AxiosError',
+          password: 'AxiosError',
         })
         // TODO: セッションタイムアウト(401)時の処理
         // if (Route.noGuardedRoutes().includes(router.pathname)) {

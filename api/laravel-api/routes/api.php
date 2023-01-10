@@ -19,8 +19,17 @@ Route::post("/logout", [AuthController::class, "logout"]);//追加
 Route::post("/register", [AuthController::class, "register"]);//追加
 
 // Default Routing
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/user', function (Request $request) {
+    // return ["book1", "book2", "book3"];
+//     return response()->json([
+//     'outings' => $outings
+// ], 200);
+    // return  response()->json(['outings' => "111", 'www' => "222"], 200);
+    return  ['id' => "1", 'name' => "lain", 'email' => "lain@gmail.com", 'password' => "wwwwwwww"];
 });
 
 Route::get("/books", function () {
