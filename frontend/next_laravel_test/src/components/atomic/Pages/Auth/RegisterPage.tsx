@@ -41,6 +41,7 @@ const RegisterPage = () => {
     <div className={'flex flex-col h-1/2 space-y-6 w-1/2 mx-auto mt-32 max-w-sm'}>
       <h1>会員登録画面</h1>
       <input
+        name='name'
         type={'text'}
         placeholder="ユーザー名"
         value={userName}
@@ -49,6 +50,7 @@ const RegisterPage = () => {
         required={true}
       />
       <input
+        name='email'
         onChange={inputEmail}
         placeholder="メールアドレス"
         required={true}
@@ -56,6 +58,7 @@ const RegisterPage = () => {
         value={email}
       />
       <input
+        name='password'
         onChange={inputPassword}
         placeholder="パスワード"
         required={true}
@@ -66,7 +69,7 @@ const RegisterPage = () => {
       <button
         className=""
         onClick={() => handleRegister(userName, email, password)}
-      />
+      >登録する</button>
       {/* <Spacer className="h-20" /> */}
       <Link
         className=" text-blue-400 text-xs text-center"

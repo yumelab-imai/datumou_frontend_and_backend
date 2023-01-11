@@ -56,6 +56,10 @@ export const useHandleLogin = () => {
         axios(options)
             .then((res: AxiosResponse<USER2>) => {
                 const user = res.data
+                console.log("resの中身を表示");
+                console.log(res.data);
+                alert("resの中身を表示");
+                alert(res.data);
                 setUser({
                     // id: user.id,
                     // name: user.name,
@@ -64,7 +68,7 @@ export const useHandleLogin = () => {
                     email: user.email,
                     password: user.password,
                 })
-                router.push('/')
+                router.push('/mypage')
             })
             .catch((error: AxiosError) => {
                 console.log('Error を表示するよ~!');
@@ -128,16 +132,25 @@ export const useHandleRegister = () => {
       axios(options)
         .then((res: AxiosResponse<USER2>) => {
           const user = res.data
+          console.log("user の中身")
+          console.log(user)
+          alert(user)
           setUser({
-            id: user.id,
-            name: user.name,
+            // id: user.id,
+            id: 344,
+            name: "Masanarea",
             email: user.email,
             password: user.password
           })
-          router.push('/')
+          router.push('/mypage')
         })
         .catch((error: AxiosError) => {
+          console.log(198)
           console.log(error)
+          console.log("error.data")
+          console.log(error?.data?.message)
+          alert(error)
+          alert(error.response?.data?.message)
         })
     })
   }

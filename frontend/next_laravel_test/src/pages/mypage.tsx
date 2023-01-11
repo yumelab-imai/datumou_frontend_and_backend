@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 
@@ -45,6 +46,32 @@ export default function Home() {
             >
             ログアウト
             </span>
+          </div>
+        </div>
+        <div className={styles.grid}>
+          <div className={styles.card}>
+            <Link
+              className=" text-blue-400 text-xs text-center"
+              href={{
+                pathname: '/login',
+                query: null
+              }}
+            >
+            Login
+            </Link>
+          </div>
+        </div>
+        <div className={styles.grid}>
+          <div className={styles.card}>
+            <Link
+              className=" text-blue-400 text-xs text-center"
+              href={{
+                pathname: '/register',
+                query: null
+              }}
+            >
+            Register
+            </Link>
           </div>
         </div>
       </main>

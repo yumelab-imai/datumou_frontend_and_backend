@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\ModelUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,14 +50,25 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        try {
         // $request->all();は今回使用しない
-        $user = ModelUser::create([
-            "name" => $request->username,
+        $user = User::create([
+            // "name" => $request->username,
+            "name" => "Masanarea_resister",
             "email" => $request->email,
             "password" => Hash::make($request->password),
         ]);
 
         Auth::login($user);
         return response()->json($user, 200);
+        } catch (\Exception $e) {
+            // echo $e->getMessage();
+            // var_dump($e->getMessage());
+            // return response()->json(["error_message" => $e->getMessage()], 401);
+            return response()->json(["message" => "エラーが出てしまった❤️"], 401);
+            // echo $e->getMessage();
+            // die();
+            // return response()->json([], 200);//OK
+        }
     }
 }
