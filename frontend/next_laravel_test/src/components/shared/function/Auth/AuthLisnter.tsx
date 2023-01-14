@@ -50,7 +50,9 @@ export const useHandleLogin = () => {
       }
     }
 
-    axios.get('/sanctum/csrf-cookie').then((res: AxiosResponse) => {
+    // CSRF保護の初期化
+    axios.get('/sanctum/csrf-cookie')
+    .then((res: AxiosResponse) => {
         // console.log("res111");
         // console.log(res);//何も問題ない何も帰ってこない
         axios(options)
@@ -128,7 +130,9 @@ export const useHandleRegister = () => {
       }
     }
 
-    axios.get('/sanctum/csrf-cookie').then((res) => {
+    // CSRF保護の初期化
+    axios.get('/sanctum/csrf-cookie')
+    .then((res) => {
       axios(options)
         .then((res: AxiosResponse<USER2>) => {
           const user = res.data
