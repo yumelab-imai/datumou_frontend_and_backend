@@ -22,7 +22,7 @@ import { useState } from "react";
 //  const googleMapOptions = {
 //   styles: InterfaceMap,
 // };
-
+ 
 console.log({mapDatum})
 const handleLogout = useHandleLogout()
 
