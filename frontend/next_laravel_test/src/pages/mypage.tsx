@@ -5,7 +5,7 @@ import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 
 import axios from "../libs/axios";
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { useHandleLogout } from '../components/shared/function/Auth/AuthLisnter'
 import { mapDatum } from '../components/atomic/Atoms/mapData'
@@ -22,8 +22,15 @@ import { useState } from "react";
 //  const googleMapOptions = {
 //   styles: InterfaceMap,
 // };
- 
-console.log({mapDatum})
+let mapDatumTest = mapDatum[0]
+let spotList = mapDatumTest.spots
+console.log(mapDatumTest) // Datum
+console.log(spotList) // Datum
+
+console.log('spotList') // Datum
+// console.log(Object.keys(spotList).map(e => spotList[e].name)) // Datum
+console.log(spotList.map(e => console.log(e.name))) // Datum
+// console.log({mapDatum.spots}) // Datum
 const handleLogout = useHandleLogout()
 
 type Props = {
@@ -31,13 +38,14 @@ type Props = {
 };
 
 const markerLabel: google.maps.MarkerLabel = {
-    text: "東京スカイツリー",
+    text: "エミナル",
     fontFamily: "sans-serif",
     fontSize: "15px",
     fontWeight: "bold",
   };
 
 
+// const GoogleMap: FC<Props> = (props) => {
 const GoogleMap: FC<Props> = (props) => {
   const { map, zoom, isLoaded, onLoad } = useMap({
     defaultPosition: props.defaultPosition,
@@ -47,23 +55,29 @@ const GoogleMap: FC<Props> = (props) => {
     width: "100vw",
     height: "75vh",
   };
+
+  const center: google.maps.LatLngLiteral = useMemo( () => ({ lat: 44, lng: -80 }), [])
   return (
     <>
       {isLoaded ? (
         <GoogleMapComponent
             // When  you try to change Google Map Styles
             // options={googleMapOptions}
-            zoom={zoom}
+            zoom={3}
+            center={center}
             mapContainerStyle={containerStyle}
             onLoad={onLoad}
         >
             <MarkerF position={props.defaultPosition} label={markerLabel} />
-            {/* HTMLでの吹き出しを設置 */}
-            {/* <InfoWindowF position={props.defaultPosition}>
-                <>
-                <h3 >東京スカイツリー</h3>
-                </>
-            </InfoWindowF> */}
+        {spotList.map(e => (
+            <>
+              <MarkerF position={e.position} label={markerLabel} />
+              {/* HTMLでの吹き出しを設置 */}
+              {/* <InfoWindowF position={e.position}>
+                  <h3 >{e.name}</h3>
+              </InfoWindowF>  */}
+            </>
+        ))}
         </GoogleMapComponent>
       ) : (
         "Now loading.."
@@ -110,7 +124,7 @@ export default function Home() {
             <div className="area_wrapper">
                 <div className="area area-course_header">
                     <div className="course_header">
-                    <h1 className="title">{'医療脱毛クリニック'}</h1>
+                    <h1 className="title">{'メンズエミナル'}</h1>
                     </div>
                 </div>
                 {/* <Map/> */}
@@ -120,10 +134,12 @@ export default function Home() {
                     ></div> */}
                 {/* </div> */}
                 <GoogleMap
-                    defaultPosition={{
+                    defaultPosition={
+                        {
                         lat: 35.70989699999999,
                         lng: 139.81071400000002,
-                    }}
+                    }
+                }
                 >
                     {/*  */}
                 </GoogleMap>
