@@ -33,8 +33,8 @@ console.log(spotList.map(e => console.log(e.name))) // Datum
 // console.log({mapDatum.spots}) // Datum
 const handleLogout = useHandleLogout()
 
-type Props = {
-  defaultPosition: google.maps.LatLngLiteral;
+type LatLngProps = {
+defaultPosition: google.maps.LatLngLiteral;
 };
 
 const markerLabel: google.maps.MarkerLabel = {
@@ -42,24 +42,23 @@ const markerLabel: google.maps.MarkerLabel = {
     fontFamily: "sans-serif",
     fontSize: "15px",
     fontWeight: "bold",
-  };
+};
 
 
-// const GoogleMap: FC<Props> = (props) => {
-const GoogleMap: FC<Props> = (props) => {
-  const { map, zoom, isLoaded, onLoad } = useMap({
+const GoogleMap: FC<LatLngProps> = (props) => {
+const { map, zoom, isLoaded, onLoad } = useMap({
     defaultPosition: props.defaultPosition,
-  });
+});
 
-  const containerStyle = {
+const containerStyle = {
     width: "100vw",
     height: "75vh",
-  };
+};
 
-  const center: google.maps.LatLngLiteral = useMemo( () => ({ lat: 44, lng: -80 }), [])
-  return (
+const center: google.maps.LatLngLiteral = useMemo( () => ({ lat: 44, lng: -80 }), [])
+return (
     <>
-      {isLoaded ? (
+    {isLoaded ? (
         <GoogleMapComponent
             // When  you try to change Google Map Styles
             // options={googleMapOptions}
@@ -71,40 +70,40 @@ const GoogleMap: FC<Props> = (props) => {
             <MarkerF position={props.defaultPosition} label={markerLabel} />
         {spotList.map(e => (
             <>
-              <MarkerF position={e.position} label={markerLabel} />
-              {/* HTMLでの吹き出しを設置 */}
-              {/* <InfoWindowF position={e.position}>
-                  <h3 >{e.name}</h3>
-              </InfoWindowF>  */}
+            <MarkerF position={e.position} label={markerLabel} />
+            {/* HTMLでの吹き出しを設置 */}
+            {/* <InfoWindowF position={e.position}>
+                <h3 >{e.name}</h3>
+            </InfoWindowF>  */}
             </>
         ))}
         </GoogleMapComponent>
-      ) : (
+    ) : (
         "Now loading.."
-      )}
+    )}
     </>
-  );
+);
 };
 
 type Map = google.maps.Map;
-export const useMap = ({ defaultPosition }: Props) => {
-  const { isLoaded } = useJsApiLoader({
+export const useMap = ({ defaultPosition }: LatLngProps) => {
+const { isLoaded } = useJsApiLoader({
     id: "google-map",
     // NEXT_PUBLIC_にしないと、サーバ側での処理となるためクライアントで使用できなくなりエラーになる
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? 'NO API_KEY',
-  });
-  const [map, setMap] = useState<Map | null>(null);
-  const onLoad = (map: Map) => {
+});
+const [map, setMap] = useState<Map | null>(null);
+const onLoad = (map: Map) => {
     const bounds = new window.google.maps.LatLngBounds(defaultPosition);
     map.fitBounds(bounds);
     setMap(map);
 };
 const zoom: number = 15;
 
-  return { map, zoom, isLoaded, onLoad };
+return { map, zoom, isLoaded, onLoad };
 };
 
- 
+
 
 
 export default function Home() {
@@ -113,9 +112,9 @@ export default function Home() {
         //   const data = res.data;
         //   console.log(data);
         //  });
-  }, []);
+}, []);
 
-  return (
+return (
     <>
         <Head>
             <title>Create Next App</title>
@@ -188,6 +187,6 @@ export default function Home() {
             </div>
         </div>
     </>
-  )
-  
+)
+
 }
