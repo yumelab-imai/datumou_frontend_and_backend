@@ -32,9 +32,32 @@ console.log('spotList') // Datum
 console.log(spotList.map(e => console.log(e.name))) // Datum
 // console.log({mapDatum.spots}) // Datum
 const handleLogout = useHandleLogout()
+// let MyPosition =1
+// const [MyPosition, setMyPosition] = useState<LatLngProps | null>(null);
+
+type TypeSpotList = {
+    id: string;
+    name: string;
+    position: {
+        lat: number;
+        lng: number;
+    };
+    shopStars: number;
+    watchCount: number;
+    externalLinkUrl: string;
+    foo: string;
+}[]
+
+type Map = google.maps.Map;
 
 type LatLngProps = {
 defaultPosition: google.maps.LatLngLiteral;
+};
+type TypeBounds = {
+    north : number;
+    east  : number;
+    south : number;
+    west  : number;
 };
 
 const markerLabel: google.maps.MarkerLabel = {
@@ -44,63 +67,102 @@ const markerLabel: google.maps.MarkerLabel = {
     fontWeight: "bold",
 };
 
+// 型定義サンプル
+// type FooProps = ({
+//     id: number
+//     name?: string
+//     infoList: Array<string>
+// });
+// const foo: React.FC<FooProps> = ({id, name, infoList}) => {
 
-const GoogleMap: FC<LatLngProps> = (props) => {
-const { map, zoom, isLoaded, onLoad } = useMap({
-    defaultPosition: props.defaultPosition,
-});
 
-const containerStyle = {
-    width: "100vw",
-    height: "75vh",
+
+
+// ページで表示する『GoogleMap コンポーネント』
+const GoogleMap: FC = () => {
+    const defaultPosition = {
+            lat: 35.70989699999999,
+            lng: 139.81071400000002,
+    }
+    // setMyPosition(defaultPosition);
+    const { map, zoom, isLoaded, onLoad } = setMapFunc({
+        defaultPosition: defaultPosition,
+    });
+
+    const containerStyle = {
+        width: "100vw",
+        height: "75vh",
+    };
+
+    const center: google.maps.LatLngLiteral = useMemo( () => ({ lat: 44, lng: -80 }), [])
+    return (
+        <>
+        {isLoaded ? (
+            <GoogleMapComponent
+                // When  you try to change Google Map Styles
+                // options={googleMapOptions}
+                zoom={3}
+                center={center}
+                mapContainerStyle={containerStyle}
+                onLoad={onLoad}
+            >
+                <MarkerF position={defaultPosition} label={markerLabel} />
+            {spotList.map(e => (
+                <>
+                <MarkerF position={e.position} label={markerLabel} />
+                {/* HTMLでの吹き出しを設置 */}
+                {/* <InfoWindowF position={e.position}>
+                    <h3 >{e.name}</h3>
+                </InfoWindowF>  */}
+                </>
+            ))}
+            </GoogleMapComponent>
+        ) : (
+            "Now loading.."
+        )}
+        </>
+    );
 };
 
-const center: google.maps.LatLngLiteral = useMemo( () => ({ lat: 44, lng: -80 }), [])
-return (
-    <>
-    {isLoaded ? (
-        <GoogleMapComponent
-            // When  you try to change Google Map Styles
-            // options={googleMapOptions}
-            zoom={3}
-            center={center}
-            mapContainerStyle={containerStyle}
-            onLoad={onLoad}
-        >
-            <MarkerF position={props.defaultPosition} label={markerLabel} />
-        {spotList.map(e => (
-            <>
-            <MarkerF position={e.position} label={markerLabel} />
-            {/* HTMLでの吹き出しを設置 */}
-            {/* <InfoWindowF position={e.position}>
-                <h3 >{e.name}</h3>
-            </InfoWindowF>  */}
-            </>
-        ))}
-        </GoogleMapComponent>
-    ) : (
-        "Now loading.."
-    )}
-    </>
-);
-};
+const createBoundsBySpots = (spotList: TypeSpotList): TypeBounds => {
+    const result: TypeBounds = {
+    north: 0,
+    east : 0,
+    south: 0,
+    west : 0,
+    };
+    //   result.north = Math.max(spotList.map(e.position => e.position.lat));
+    //   result.north = Math.max(...spotList.map(true => true) );
+    result.north  = Math.max(...spotList.map(spot => spot.position.lat));
+    result.east  = Math.max(...spotList.map(spot => spot.position.lng));
+    result.south = Math.min(...spotList.map(spot => spot.position.lat));
+    result.west  = Math.min(...spotList.map(spot => spot.position.lng));
+    return result;
+}
 
-type Map = google.maps.Map;
-export const useMap = ({ defaultPosition }: LatLngProps) => {
-const { isLoaded } = useJsApiLoader({
-    id: "google-map",
-    // NEXT_PUBLIC_にしないと、サーバ側での処理となるためクライアントで使用できなくなりエラーになる
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? 'NO API_KEY',
-});
-const [map, setMap] = useState<Map | null>(null);
-const onLoad = (map: Map) => {
-    const bounds = new window.google.maps.LatLngBounds(defaultPosition);
-    map.fitBounds(bounds);
-    setMap(map);
-};
-const zoom: number = 15;
 
-return { map, zoom, isLoaded, onLoad };
+
+const setMapFunc = ({ defaultPosition }: LatLngProps) => {
+    // NEXT_PUBLIC_にしないと、サーバ側での処理となるためクライアントで使用できなくなり不具合が起こります。
+    const googleMapsApiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? 'NO API_KEY'
+    if(googleMapsApiKey == 'NO API_KEY'){
+        //Error code
+    }
+    const zoom: number = 5;
+    const [map, setMap] = useState<Map | null>(null);
+    const { isLoaded } = useJsApiLoader({
+        id: "google-map",
+        googleMapsApiKey: googleMapsApiKey,
+    });
+    const onLoad = (map: Map) => {
+        // ここでどの範囲を初期状態で囲むかを１つのポジションで設定する
+        const bounds = new window.google.maps.LatLngBounds(defaultPosition);
+        map.fitBounds(createBoundsBySpots(spotList), { top: 50, right: 1.0, bottom: 22.1, left: 1.0 });
+        // map.fitBounds(bounds);
+        setMap(map);
+    };
+
+    return { zoom, map, isLoaded, onLoad };
 };
 
 
@@ -132,14 +194,7 @@ return (
                     {/* <div className="map " style={{width: '400px', height:'100px'}}
                     ></div> */}
                 {/* </div> */}
-                <GoogleMap
-                    defaultPosition={
-                        {
-                        lat: 35.70989699999999,
-                        lng: 139.81071400000002,
-                    }
-                }
-                >
+                <GoogleMap>
                     {/*  */}
                 </GoogleMap>
 
