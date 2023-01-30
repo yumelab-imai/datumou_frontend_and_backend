@@ -34,6 +34,7 @@ console.log(spotList.map(e => console.log(e.name))) // Datum
 const handleLogout = useHandleLogout()
 // let MyPosition =1
 // const [MyPosition, setMyPosition] = useState<LatLngProps | null>(null);
+// const [currentFocusSpot, setCurrentFocusSpot] = useState(null);
 
 type TypeSpotList = {
     id: string;
@@ -75,15 +76,60 @@ const markerLabel: google.maps.MarkerLabel = {
 // });
 // const foo: React.FC<FooProps> = ({id, name, infoList}) => {
 
+const toggleFocusSpot = (spot: LatLngProps) => {
+    if (currentFocusSpot !== null && currentFocusSpot === spot) {
+    unFocusSpot();
+    } else {
+    focusSpot(spot);
+    }
+}
 
-
+const displayConsole = (e) => {
+    console.log(e);
+}
 
 // ページで表示する『GoogleMap コンポーネント』
 const GoogleMap: FC = () => {
+    const focusSpot = (spot: LatLngProps) => {
+          setCurrentFocusSpot(spot);
+          console.log(currentFocusSpot);
+    }
+    const unFocusSpot = () => {
+          setCurrentFocusSpot(null);
+    }
+
+    const SpotLightcurrentFocusSpot = () => {
+    //     if (marker === activeMarker) {
+    //   return;
+    // }
+    // setActiveMarker(marker);
+        if (currentFocusSpot !== null) {
+            console.log("選択箇所にスポットを当てる");
+        //     disableMapTrackCurrentPostion();
+            map.panTo(currentFocusSpot);
+            // setActiveMarker(marker);
+
+        //     _.invokeMap(spotMarkers, 'setZIndex', undefined);
+                // Markersの 'setZIndex'を全て undefined にするメゾット
+
+        //     findSpotMarkerBySpot(this.currentFocusSpot)?.setZIndex(100);
+        //     openSpotInfoWindow(currentFocusSpot);
+        } else {
+            console.log("選択箇所にスポットを当てる(null)");
+        //     _.invokeMap(spotMarkers, 'setZIndex', undefined);
+        //     closeSpotInfoWindow();
+        }
+    }
     const defaultPosition = {
             lat: 35.70989699999999,
             lng: 139.81071400000002,
     }
+    const [currentFocusSpot, setCurrentFocusSpot] = useState<LatLngProps | null>(null);
+    // const [activeMarker, setActiveMarker] = useState(null);
+    useEffect(() => {
+        SpotLightcurrentFocusSpot();
+        console.log('useEffectで変化したよ！');
+    }, [currentFocusSpot]);
     // setMyPosition(defaultPosition);
     const { map, zoom, isLoaded, onLoad } = setMapFunc({
         defaultPosition: defaultPosition,
@@ -106,14 +152,19 @@ const GoogleMap: FC = () => {
                 mapContainerStyle={containerStyle}
                 onLoad={onLoad}
             >
-                <MarkerF position={defaultPosition} label={markerLabel} />
+                <MarkerF position={defaultPosition}  />
             {spotList.map(e => (
                 <>
-                <MarkerF position={e.position} label={markerLabel} />
+                <MarkerF position={e.position}  onClick={() => focusSpot(e.position)}/>
+                {/* 今まで */}
+                {/* <MarkerF position={e.position} label={markerLabel} onClick={() => focusSpot(e.position)}/> */}
+                {/* <MarkerF position={e.position} label={markerLabel} onClick={(e) => displayConsole(e)}/> */}
                 {/* HTMLでの吹き出しを設置 */}
-                {/* <InfoWindowF position={e.position}>
-                    <h3 >{e.name}</h3>
-                </InfoWindowF>  */}
+                {currentFocusSpot === e.position ? (
+                    <InfoWindowF position={e.position}  onCloseClick={() => unFocusSpot()}>
+                        <div>{e.name}</div>
+                    </InfoWindowF>
+                ) : null}
                 </>
             ))}
             </GoogleMapComponent>
