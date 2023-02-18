@@ -3,7 +3,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "prettier": "prettier"
+        "prettier": "prettier",
+        "prepare": "husky install"
     },
     "devDependencies": {
         "@prettier/plugin-php": "^0.19.3",
@@ -14,11 +15,5 @@
         "postcss": "^8.1.14",
         "prettier": "^2.8.4",
         "vite": "^4.0.0"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run prettier -- app/* --write && npm run prettier -- config/* --write && npm run prettier -- database/* --write && npm run prettier -- lang/* --write && npm run prettier -- resources/* --write && npm run prettier -- routes/* --write && npm run prettier -- tests/* --write",
-            "pre-push": "npm run prettier -- app/* --write && npm run prettier -- config/* --write && npm run prettier -- database/* --write && npm run prettier -- lang/* --write && npm run prettier -- resources/* --write && npm run prettier -- routes/* --write && npm run prettier -- tests/* --write"
-        }
     }
 }
