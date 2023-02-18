@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AuthController;//追記
+use App\Http\Controllers\Auth\AuthController; //追記
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,9 +14,9 @@ use App\Http\Controllers\Auth\AuthController;//追記
 |
 */
 
-Route::post("/login", [AuthController::class, "login"]);//追加
-Route::post("/logout", [AuthController::class, "logout"]);//追加
-Route::post("/register", [AuthController::class, "register"]);//追加
+Route::post('/login', [AuthController::class, 'login']); //追加
+Route::post('/logout', [AuthController::class, 'logout']); //追加
+Route::post('/register', [AuthController::class, 'register']); //追加
 
 // Default Routing
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -25,13 +25,13 @@ Route::post("/register", [AuthController::class, "register"]);//追加
 
 Route::get('/user', function (Request $request) {
     // return ["book1", "book2", "book3"];
-//     return response()->json([
-//     'outings' => $outings
-// ], 200);
+    //     return response()->json([
+    //     'outings' => $outings
+    // ], 200);
     // return  response()->json(['outings' => "111", 'www' => "222"], 200);
-    return  ['id' => "1", 'name' => "lain", 'email' => "lain@gmail.com", 'password' => "wwwwwwww"];
+    return ['id' => '1', 'name' => 'lain', 'email' => 'lain@gmail.com', 'password' => 'wwwwwwww'];
 });
 
-Route::get("/books", function () {
-    return ["book1", "book2", "book3"];
+Route::get('/books', function () {
+    return ['book1', 'book2', 'book3'];
 });
