@@ -3,3 +3,6 @@ frontend_c:
 
 backend_c:
 	docker-compose exec backend bash
+
+docker up:
+	docker-compose up -d

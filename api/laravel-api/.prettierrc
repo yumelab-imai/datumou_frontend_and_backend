@@ -1,0 +1,8 @@
+{
+    "phpVersion": "8.0",
+    "singleQuote": true,
+    "tabWidth": 4,
+    "semi": true,
+    "printWidth": 120,
+    "useTabs": false
+}
