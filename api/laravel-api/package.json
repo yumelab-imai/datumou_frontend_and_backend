@@ -17,8 +17,8 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "npm test",
-            "pre-push": "npm test"
+            "pre-commit": "npm run prettier -- app/* --write && npm run prettier -- config/* --write && npm run prettier -- database/* --write && npm run prettier -- lang/* --write && npm run prettier -- resources/* --write && npm run prettier -- routes/* --write && npm run prettier -- tests/* --write",
+            "pre-push": "npm run prettier -- app/* --write && npm run prettier -- config/* --write && npm run prettier -- database/* --write && npm run prettier -- lang/* --write && npm run prettier -- resources/* --write && npm run prettier -- routes/* --write && npm run prettier -- tests/* --write"
         }
     }
 }
