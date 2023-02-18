@@ -12,9 +12,9 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('t_master', function (Blueprint $table) {
+        Schema::create('clinics', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('del_flg')->default(0);
+            $table->tinyInteger('delete_flag')->default(0);
             $table->integer('created_at');
             $table->integer('created_user_id')->default(0);
             $table->string('created_action', '100')->collation('utf8mb4_bin');
@@ -44,18 +44,22 @@ return new class extends Migration {
                 ->collation('utf8mb4_bin')
                 ->nullable()
                 ->default(null);
-            $table->integer('category_type');
-            $table->integer('category_key')->default(0);
+            $table->integer('category_type'); //どのクリニックか
+            $table->integer('category_key')->default(0); //クリニックの〇〇店か
+            $table->tinyInteger('use_flag')->default(0);
             $table
-                ->string('category_value', '100')
+                ->string('clinic_name', '100')
                 ->collation('utf8mb4_bin')
                 ->nullable()
                 ->default(null);
             $table
-                ->string('category_memo', '100')
+                ->string('clinic_address', '100')
                 ->collation('utf8mb4_bin')
                 ->nullable()
                 ->default(null);
+            $table->double('latitude', 9, 6);
+            $table->double('longitude', 9, 6);
+            $table->integer('prefecture_cd')->default(0);
             $table->integer('sort_no')->default(999);
         });
     }
@@ -67,6 +71,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('t_master');
+        Schema::dropIfExists('clinics');
     }
 };
