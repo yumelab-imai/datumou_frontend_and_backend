@@ -58,7 +58,7 @@ return new class extends Migration {
                 ->nullable()
                 ->default(null);
             $table->double('latitude', 9, 6);
-            $table->double('longitude', 9, 6);
+            $table->double('longitude', 9, 6); //
             $table->integer('prefecture_cd')->default(0);
             $table->integer('sort_no')->default(999);
         });
