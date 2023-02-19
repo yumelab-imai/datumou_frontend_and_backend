@@ -45,7 +45,6 @@ return new class extends Migration {
                 ->nullable()
                 ->default(null);
             $table->integer('category_type'); //どのクリニックか
-            $table->integer('category_key')->default(0); //クリニックの〇〇店か
             $table->tinyInteger('use_flag')->default(0);
             $table
                 ->string('clinic_name', '100')
