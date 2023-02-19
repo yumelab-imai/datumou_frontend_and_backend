@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('clinics', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('delete_flag')->default(0);
-            $table->integer('created_at');
+            $table->timestamp('created_at');
             $table->integer('created_user_id')->default(0);
             $table->string('created_action', '100')->collation('utf8mb4_bin');
             $table

@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('t_master', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('del_flg')->default(0);
-            $table->integer('created_at');
+            $table->timestamp('created_at');
             $table->integer('created_user_id')->default(0);
             $table->string('created_action', '100')->collation('utf8mb4_bin');
             $table
