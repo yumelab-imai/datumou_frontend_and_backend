@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\CoreController;
+use App\Http\Controllers\Core\MyController;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB;
 use App\Models\Master;
-class MasterController extends CoreController
+class MasterController extends MyController
 {
     public function __construct()
     {
@@ -15,7 +15,7 @@ class MasterController extends CoreController
     }
     public function prefectures()
     {
-        $this->indexAction(); // MY_Controller テスト用        // $members = DB::select('select * from members');
+        $this->testTest(); // MY_Controller テスト用
         $prefectures = Master::all();
         return $prefectures;
     }
