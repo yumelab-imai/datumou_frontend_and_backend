@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController; //追記
+use App\Http\Controllers\Common\MasterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,3 +36,5 @@ Route::get('/user', function (Request $request) {
 Route::get('/books', function () {
     return ['book1', 'book2', 'book3'];
 });
+
+Route::get('/prefectures', [MasterController::class, 'prefectures']);
