@@ -195,7 +195,10 @@ return [
         /*
          * Original Service Providers...
          */
+        // 汎用関数群
         App\Providers\UtilServiceProvider::class,
+        // IDE Helper Generator (for Laravel Facade コード補完)
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*

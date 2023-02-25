@@ -5,6 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\ModelUser
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|ModelUser newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ModelUser newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ModelUser query()
+ * @mixin \Eloquent
+ */
 class ModelUser extends Model
 {
     use HasFactory;
