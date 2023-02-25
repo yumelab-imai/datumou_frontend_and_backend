@@ -21,4 +21,22 @@ class Util
 
         return $form_input;
     }
+
+    /**
+     * データ登録
+     *
+     * @param array $insData
+     * @return integer
+     */
+    public function insert($insData, $sequence = 'id')
+    {
+        if (!is_array($insData) || empty($insData)) {
+            throw new \Exception('insert() パラメータが不正です。');
+        }
+        // SQLログ
+        // $insData = $this->setInsUser($insData);
+        // return DB::table($this->table)->insertGetId($insData, $sequence);
+        // $this->db->insert($this->table, $insData);
+        // return $this->db->insert_id();
+    }
 }

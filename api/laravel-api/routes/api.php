@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController; //追記
 use App\Http\Controllers\Common\MasterController;
+use App\Http\Controllers\Clinic\indexController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -66,3 +67,5 @@ use App\Http\Controllers\Common\MasterController;
 // });
 
 Route::get('prefectures', [MasterController::class, 'prefectures'])->name('common.prefectures');
+
+Route::post('add/clinic', [indexController::class, 'addClinic']);

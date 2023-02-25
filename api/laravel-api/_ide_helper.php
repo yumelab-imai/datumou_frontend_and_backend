@@ -17618,6 +17618,18 @@
      *
      */ 
         class Util {
+                    /**
+         * データ登録
+         *
+         * @param array $insData
+         * @return integer 
+         * @static 
+         */ 
+        public static function insert($insData, $sequence = 'id')
+        {
+                        /** @var \App\Library\Util $instance */
+                        return $instance->insert($insData, $sequence);
+        }
          
     }
      
