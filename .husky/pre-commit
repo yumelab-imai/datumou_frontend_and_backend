@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd api/laravel-api && npm run prettier -- app/* --write && npm run prettier -- config/* --write && npm run prettier -- database/* --write && npm run prettier -- lang/* --write && npm run prettier -- resources/* --write && npm run prettier -- routes/* --write && echo yes | php artisan ide-helper:generate && echo yes | php artisan ide-helper:models &&  cd ../../frontend/datumou_frontend && npm run format
+cd api/laravel-api && npm run prettier -- app/* --write && npm run prettier -- config/* --write && npm run prettier -- database/* --write && npm run prettier -- lang/* --write && npm run prettier -- resources/* --write && npm run prettier -- routes/* --write && php artisan ide-helper:generate && yes | php artisan ide-helper:models &&  cd ../../frontend/datumou_frontend && npm run format
