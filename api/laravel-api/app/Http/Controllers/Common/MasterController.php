@@ -16,7 +16,7 @@ class MasterController extends MyController
     public function prefectures()
     {
         // $this->testTest(); // MY_Controller テスト用
-        \Util::testTest2();
+        // \Util::fillFormInput();
         $prefectures = Master::all();
         return $prefectures;
     }

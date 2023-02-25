@@ -17618,16 +17618,6 @@
      *
      */ 
         class Util {
-                    /**
-         * 応用が効く関数を用意
-         *
-         * @static 
-         */ 
-        public static function testTest2()
-        {
-                        /** @var \App\Library\Util $instance */
-                        return $instance->testTest2();
-        }
          
     }
      
