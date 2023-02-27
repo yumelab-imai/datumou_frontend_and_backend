@@ -17625,10 +17625,10 @@
          * @return integer 
          * @static 
          */ 
-        public static function insert($insData, $sequence = 'id')
+        public static function insert($insertData)
         {
                         /** @var \App\Library\Util $instance */
-                        return $instance->insert($insData, $sequence);
+                        return $instance->insert($insertData);
         }
          
     }

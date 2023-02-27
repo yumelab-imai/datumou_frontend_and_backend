@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Library;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class Util
 {
@@ -28,15 +30,18 @@ class Util
      * @param array $insData
      * @return integer
      */
-    public function insert($insData, $sequence = 'id')
+    public function insert($insertData)
     {
-        if (!is_array($insData) || empty($insData)) {
+        if (!is_array($insertData) || empty($insertData)) {
             throw new \Exception('insert() パラメータが不正です。');
         }
-        // SQLログ
+        DB::enableQueryLog();
+        // Log::debug('debug ログ!');
         // $insData = $this->setInsUser($insData);
         // return DB::table($this->table)->insertGetId($insData, $sequence);
         // $this->db->insert($this->table, $insData);
+        // SQLログ出力
+        Log::debug(DB::getQueryLog());
         // return $this->db->insert_id();
     }
 }

@@ -6,3 +6,6 @@ ide_facade:
 
 ide_model:
 	php artisan ide-helper:model
+
+clear_log:
+	php artisan logs:clear

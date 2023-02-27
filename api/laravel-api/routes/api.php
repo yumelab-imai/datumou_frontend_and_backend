@@ -69,3 +69,4 @@ use App\Http\Controllers\Clinic\indexController;
 Route::get('prefectures', [MasterController::class, 'prefectures'])->name('common.prefectures');
 
 Route::post('add/clinic', [indexController::class, 'addClinic']);
+Route::post('clinic/list', [indexController::class, 'getClinicList']);
