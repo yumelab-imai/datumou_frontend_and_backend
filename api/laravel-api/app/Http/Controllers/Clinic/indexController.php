@@ -132,9 +132,17 @@ class indexController extends Controller
         ];
 
         try {
+            $category_type = 1;
             DB::enableQueryLog();
-            $clinics = Clinic::all();
+            // $clinics = Clinic::all();
+            // $clinics = Clinic::where('delete_flag', DELETE_FLAG_OFF);
+            $clinics = Clinic::where('delete_flag', 0)
+                ->where('category_type', $category_type)
+                ->get();
             Log::debug('クリニック一覧所得 SQLログ');
+            // dump($clinics);
+            // var_dump($clinics);
+            // dd($clinics);
             // SQLログ出力
             Log::debug(DB::getQueryLog());
             if (empty($clinics)) {
