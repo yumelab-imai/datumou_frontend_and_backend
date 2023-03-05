@@ -121,7 +121,7 @@ class indexController extends Controller
         }
     }
 
-    public function getClinicList(Request $request)
+    public function getClinicList(Request $request, $category_type = 1)
     {
         // ajax response info
         $result = [
@@ -132,7 +132,6 @@ class indexController extends Controller
         ];
 
         try {
-            $category_type = 1;
             DB::enableQueryLog();
             // $clinics = Clinic::all();
             // $clinics = Clinic::where('delete_flag', DELETE_FLAG_OFF);
@@ -155,7 +154,7 @@ class indexController extends Controller
                 $result['message'] = 'クリニックの一覧所得に成功しました。';
                 $result['response_data'] = $clinics;
             }
-            Log::debug('登録に成功しました。');
+            Log::debug('検索に成功しました。');
 
             return response()->json($result, Response::HTTP_OK);
         } catch (\Exception $e) {
